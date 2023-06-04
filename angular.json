@@ -64,12 +64,17 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "BreakfastGyG:build",
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "browserTarget": "BreakfastGyG:build:production"
             },
             "development": {
-              "browserTarget": "BreakfastGyG:build:development"
+              "browserTarget": "BreakfastGyG:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
