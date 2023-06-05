@@ -1,0 +1,76 @@
+<h1 mat-dialog-title>Add Breakfast Form</h1>
+
+<div mat-dialog-content>
+    <form [formGroup]="breakfastForm">
+        <mat-form-field style="padding-top: 5px;" appearance="outline">
+            <mat-label>Breakfast Name</mat-label>
+            <input formControlName="name" matInput placeholder="Name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea formControlName="description" matInput placeholder="Description"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input formControlName="date" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field style="padding-top: 20px; width: 45%;" appearance="outline">
+            <mat-label>Start time</mat-label>
+            <input type="time" formControlName="startTime" matInput placeholder="Start time">
+        </mat-form-field>
+        <mat-form-field style="padding-left: 10%; width: 45%;" appearance="outline">
+            <mat-label>End time</mat-label>
+            <input type="time" formControlName="endTime" matInput placeholder="End time">
+        </mat-form-field>
+
+        <mat-form-field class="chip-list">
+            <mat-label>Savory options</mat-label>
+            <mat-chip-grid #chipGridSavory aria-label="Enter savory options">
+              <mat-chip-row *ngFor="let savory of savorys"
+                            (removed)="removeSavory(savory)"
+                            [editable]="true"
+                            (edited)="editSavory(savory, $event)"
+                            [aria-description]="'press enter to edit ' + savory.name">
+                {{savory.name}}
+                <button matChipRemove [attr.aria-label]="'remove ' + savory.name">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input formControlName="savorys" placeholder="New savory..."
+                     [matChipInputFor]="chipGridSavory"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="addSavory($event)"/>
+            </mat-chip-grid>
+        </mat-form-field>
+
+        <mat-form-field class="chip-list">
+            <mat-label>Sweet options</mat-label>
+            <mat-chip-grid #chipGridSweet aria-label="Enter sweet options">
+              <mat-chip-row *ngFor="let sweet of sweets"
+                            (removed)="removeSweet(sweet)"
+                            [editable]="true"
+                            (edited)="editSweet(sweet, $event)"
+                            [aria-description]="'press enter to edit ' + sweet.name">
+                {{sweet.name}}
+                <button matChipRemove [attr.aria-label]="'remove ' + sweet.name">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input formControlName="sweets" placeholder="New sweet..."
+                     [matChipInputFor]="chipGridSweet"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="addSweet($event)"/>
+            </mat-chip-grid>
+        </mat-form-field>
+        
+    </form>
+</div>
+<div mat-dialog-action [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>    
+    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addEditBreakfast()">{{actionButton}}</button>
+</div>
