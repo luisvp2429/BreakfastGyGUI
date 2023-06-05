@@ -4,7 +4,7 @@
     <form [formGroup]="breakfastForm">
         <mat-form-field style="padding-top: 5px;" appearance="outline">
             <mat-label>Breakfast Name</mat-label>
-            <input formControlName="breakfastName" matInput placeholder="Name">
+            <input formControlName="name" matInput placeholder="Name">
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
@@ -72,5 +72,5 @@
 </div>
 <div mat-dialog-action [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Close</button>    
-    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addBreakfast()">Save</button>
+    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="addEditBreakfast()">{{actionButton}}</button>
 </div>

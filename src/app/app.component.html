@@ -6,3 +6,77 @@
   <span class="example-spacer"></span>
   <button mat-raised-button color="warn" (click)="openDialog()">Add Breakfast</button>
 </mat-toolbar>
+
+<div class="container">
+  <div style="margin-top: 10px;">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Luis" #input>
+    </mat-form-field>
+    
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+        </ng-container>
+    
+        <!-- Start Time Column -->
+        <ng-container matColumnDef="startDateTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Start time </th>
+          <td mat-cell *matCellDef="let row"> {{row.startDateTime | date:'short' }} </td>
+        </ng-container>
+
+        <!-- End Time Column -->
+        <ng-container matColumnDef="endDateTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> End time </th>
+          <td mat-cell *matCellDef="let row"> {{row.endDateTime | date:'short' }} </td>
+        </ng-container>
+
+        <!-- Savory Column -->
+        <ng-container matColumnDef="savory">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Savory </th>
+          <td mat-cell *matCellDef="let row"> {{row.savory}} </td>
+        </ng-container>
+
+        <!-- Sweet Column -->
+        <ng-container matColumnDef="sweet">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sweet </th>
+          <td mat-cell *matCellDef="let row"> {{row.sweet}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button (click)="editBreakfast(row)" color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteBreakfast(row.id)" color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+    
+  </div>
+</div>

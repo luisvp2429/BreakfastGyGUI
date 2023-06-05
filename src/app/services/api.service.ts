@@ -11,18 +11,18 @@ readonly APIUrl="https://localhost:7168";
   constructor(private http : HttpClient) { }
 
   postBreakfast(data : any){
-    return this.http.post<any>(this.APIUrl+"/breakfasts",data);
+    return this.http.post<any>(this.APIUrl+"/breakfasts", data);
   }
 
   getBreakfast(){
-    return this.http.get<any>(this.APIUrl);
+    return this.http.get<any>(this.APIUrl+"/breakfasts");
   }
 
-  updateBreakfast(data : any){
-    return this.http.put<any>(this.APIUrl+"/breakfasts",data);
+  updateBreakfast(data : any, id : string){
+    return this.http.put<any>(this.APIUrl+"/breakfasts/" + id, data);
   }
 
-  deleteBreakfast(data : any){
-    return this.http.delete<any>(this.APIUrl+"/breakfasts",data);
+  deleteBreakfast(id : string){
+    return this.http.delete<any>(this.APIUrl+"/breakfasts/" + id);
   }
 }
